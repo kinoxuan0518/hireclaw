@@ -1,0 +1,40 @@
+# 当前激活的招聘职位
+# 修改这个文件来切换招聘目标
+
+title: AI 算法工程师
+department: 技术
+
+# 职位核心要求（影响候选人筛选标准）
+requirements:
+  must_have:
+    - 熟悉 LLM / RAG / Agent 相关技术
+    - 有实际落地经验，不只是调 API
+    - 逻辑清晰，简历有数据支撑
+  nice_to_have:
+    - 大厂背景或知名开源项目贡献
+    - 985/211 学历
+  deal_breaker:
+    - 跳槽超过 3 次且无合理解释
+    - 简历模糊、夸大其词
+    - 薪资预期明显虚高
+
+# 薪资范围
+salary:
+  min: 25000
+  max: 45000
+  unit: 月薪（税前）
+
+# 渠道优先级（按顺序执行）
+channels:
+  - boss
+  - maimai
+  - linkedin
+
+# 每日目标
+daily_goal:
+  contact: 30      # 每日触达目标人数
+  quality: 5       # 期望进入下一轮的人数
+
+# 紧急程度
+urgency: high      # low / medium / high
+deadline: 2025-04-01
