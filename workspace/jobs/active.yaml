@@ -4,9 +4,11 @@ department: 技术
 
 requirements:
   must_have:
-    - 本科院校985院校/QS100
+    - 大模型算法工程师-工业智能	高	是	985	硕士			字节、阿里、腾讯、美团、快手、小红书、MiniMax、月之暗面、智谱、阶跃星辰	LLM
+    - RAG
+    - PyTorch	需有AI Agent相关经验	70.0			2026/02/04
   nice_to_have:
-    - 互联网公司背景
+    - 研究开发工程师（偏AI方向）	中	是	985				字节、阿里、腾讯、美团、快手、小红书、亚马逊、携程		需有AI Agent相关经验	65.0			2026/02/04
   deal_breaker:
     - 跳槽超过 3 次且无合理解释
     - 简历模糊、夸大其词
@@ -23,4 +25,4 @@ daily_goal:
   contact: 200
   quality: 5
 
-urgency: High
+urgency: high
