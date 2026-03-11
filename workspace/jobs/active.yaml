@@ -24,11 +24,17 @@ salary:
   max: 45000
   unit: 月薪（税前）
 
-# 渠道优先级（按顺序执行）
+# 渠道配置（并行执行，账号数决定并行度）
 channels:
-  - boss
-  - maimai
-  - linkedin
+  boss:
+    enabled: true
+    accounts: 1      # BOSS直聘账号数量（有几个账号就开几个标签页并行跑）
+  maimai:
+    enabled: true
+    accounts: 1      # 脉脉账号数量
+  linkedin:
+    enabled: false
+    accounts: 0
 
 # 每日目标
 daily_goal:
