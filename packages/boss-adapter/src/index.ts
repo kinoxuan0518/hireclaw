@@ -1,12 +1,10 @@
-﻿// @hireclaw/boss-adapter — BOSS直聘平台适配器
+// @hireclaw/boss-adapter — BOSS直聘平台适配器
 //
 // 实现 PlatformAdapter 接口，核心逻辑：
 // 1. 候选人搜索与筛选（硬性筛选 + 评分排序）
 // 2. 防封控（频率控制、上限检测、退避策略）
 // 3. 打招呼（幂等保护、留痕）
 // 4. 消息处理（状态机、简历请求、评估判定）
-//
-// 浏览器自动化部分标记为 TODO，由 Playwright 实现
 
 import type {
   PlatformAdapter,
@@ -20,8 +18,6 @@ import type {
   CandidateProfile,
   Education,
   Experience,
-  EvaluationResult,
-  EvaluationDimension,
   JobConfig,
 } from '@hireclaw/core';
 
@@ -164,8 +160,8 @@ export class BossRateLimiter {
       await this.sleep(this.backoffUntil - now);
     }
 
-    // 基础间隔
-    const jitter = Math.random() * 1000; // 0-1s 随机抖动
+    // 基础间隔 + 随机抖动
+    const jitter = Math.random() * 1000;
     await this.sleep(this.baseDelay + jitter);
 
     this.lastActionTime = Date.now();
@@ -465,7 +461,7 @@ export function analyzeCandidateMessage(
       return {
         action: 'provide_info',
         intention: 'interested',
-        needsResume: false, // 已经发了
+        needsResume: false,
         suggestedReply: '收到简历，我看完后尽快给您反馈。',
         confidence: 0.85,
       };
@@ -578,12 +574,12 @@ export class BossAdapter implements PlatformAdapter {
     await this.sleep(2000, 4000);
 
     // 2. 应用页面筛选条件
-    const filters = request.job.filters ?? {};
+    const filters = request.job.filters as Record<string, unknown> | undefined;
     await this.browserSession.applyFilters({
-      keywords: filters.keywords as string[] | undefined,
-      degree: filters.degree as string[] | undefined,
-      experience: filters.experience as string[] | undefined,
-      schoolTags: filters.schoolTags as string[] | undefined,
+      keywords: filters?.keywords as string[] | undefined,
+      degree: filters?.degree as string[] | undefined,
+      experience: filters?.experience as string[] | undefined,
+      schoolTags: filters?.schoolTags as string[] | undefined,
     });
 
     // 3. 切换到推荐 tab（默认）
@@ -722,12 +718,10 @@ export class BossAdapter implements PlatformAdapter {
     this.ensureInitialized();
     if (!this.browserSession) throw new Error('Browser session not available');
 
-    // 我们需要用 candidateId 查找对应的 Candidate 对象
-    // candidateId 在我们的系统里就是 BossCandidateRaw.id
-    // 这里构造一个最小 Candidate 对象用于定位
-    const dummyCandidate: import('@hireclaw/core').Candidate = {
+    // 构造最小 Candidate 对象用于定位
+    const dummyCandidate: Candidate = {
       id: candidateId,
-      name: '', // 将在 findCandidateCard 中通过其他方式查找
+      name: '',
       platform: 'boss',
       profile: { education: [], experience: [], skills: [], ext: {} },
       source: { rawData: { id: candidateId } },
@@ -807,10 +801,6 @@ export class BossAdapter implements PlatformAdapter {
     return new Promise<void>(resolve => setTimeout(resolve as () => void, ms));
   }
 }
-
-// ── Export helpers ──
-
-export { type ConversationStatus, type EvaluationResult, type EvaluationDimension, type Candidate, type CandidateProfile, type Education, type Experience, type JobConfig };
 
 // ── Re-export browser module ──
 

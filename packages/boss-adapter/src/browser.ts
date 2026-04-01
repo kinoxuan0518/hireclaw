@@ -54,7 +54,6 @@ const SEL = {
   filterPanel: '.filter-container, .dialog-filter, .screen-container',
   filterConfirm: '.btn-primary, .filter-confirm',
   filterCancel: '.btn-default, .filter-cancel',
-  filterTagActive: '.tag-active, .selected, .tag-choosed',
 
   // 筛选项
   experienceFilter: '.experience-filter, [data-filter="experience"], .filter-exp',
@@ -285,13 +284,11 @@ export class BrowserSession {
   async switchTab(tabName: string): Promise<void> {
     const page = this.getPage();
 
-    // 查找匹配的 tab
+    // 查找匹配的 tab（仅用 li.tab-item，避免误判候选人卡片）
     const tabs = await page.$$(SEL.tabItem);
     for (const tab of tabs) {
       const text = await tab.textContent();
       if (text?.includes(tabName)) {
-        // 检查是否已经是当前 tab
-        const isActive = await tab.$(SEL.tabItemActive);
         const classes = await tab.getAttribute('class');
         if (classes?.includes('current') || classes?.includes('active')) {
           this.log(`Already on tab "${tabName}"`);
@@ -514,7 +511,7 @@ export class BrowserSession {
 
     const btnText = await chatBtn.textContent();
     // 如果是"继续沟通"或"沟通"，说明已联系过
-    if (btnText?.includes('继续') || btnText?.includes('沟通') && !btnText?.includes('立即')) {
+    if (btnText?.includes('继续') || (btnText?.includes('沟通') && !btnText?.includes('立即'))) {
       await chatBtn.click();
       await this.randomDelay(2000, 4000);
     } else {
@@ -570,15 +567,18 @@ export class BrowserSession {
    * 解析单个候选人卡片
    */
   private async parseCandidateCard(card: ElementHandle<Element>): Promise<BossCandidateRaw | null> {
-    const page = this.getPage();
-
-    const id = await card.evaluate(el => el.getAttribute('data-hid') ?? el.getAttribute('data-ka') ?? crypto.randomUUID()).catch(() => undefined);
     const name = await card.$eval(SEL.candidateName, el => el.textContent?.trim() ?? '').catch(() => '');
+    if (!name || name.length === 0) return null;
+
+    const id = await card.evaluate(el =>
+      el.getAttribute('data-hid') ?? el.getAttribute('data-ka') ?? `raw-${Date.now()}-${Math.random().toString(36).slice(2)}`
+    ).catch(() => undefined);
+
     const school = await card.$eval(SEL.candidateSchool, el => el.textContent?.trim() ?? '').catch(() => '');
     const company = await card.$eval(SEL.candidateCompany, el => el.textContent?.trim() ?? '').catch(() => '');
     const title = await card.$eval(SEL.candidateTitle, el => el.textContent?.trim() ?? '').catch(() => '');
-
-    if (!name || name.length === 0) return null;
+    const degree = await card.$eval(SEL.candidateDegree, el => el.textContent?.trim() ?? '').catch(() => '');
+    const experienceText = await card.$eval(SEL.candidateExperience, el => el.textContent?.trim() ?? '').catch(() => '');
 
     // 提取在线状态
     const onlineStatus = await this.parseOnlineStatus(card);
@@ -589,11 +589,7 @@ export class BrowserSession {
     const buttonState = hasContinueBtn ? 'continue' : hasGreetBtn ? 'greet' : undefined;
 
     // 提取经验年限
-    const experienceText = await card.$eval(SEL.candidateExperience, el => el.textContent?.trim() ?? '').catch(() => '');
     const experienceYears = this.parseExperienceYears(experienceText);
-
-    // 提取学历
-    const degree = await card.$eval(SEL.candidateDegree, el => el.textContent?.trim() ?? '').catch(() => '');
 
     // 解析技能标签
     const skills = await card.evaluate(el => {
@@ -643,7 +639,6 @@ export class BrowserSession {
     const page = this.getPage();
 
     try {
-      // 检查是否出现弹窗
       const modal = await page.$(SEL.quotaModal);
       if (!modal) return null;
 
@@ -652,7 +647,6 @@ export class BrowserSession {
 
       // 每日上限
       if (SEL.quotaText.test(modalText)) {
-        // 关闭弹窗
         await this.closeModal(page);
         return 'quota_exhausted';
       }
@@ -784,9 +778,9 @@ export class BrowserSession {
     if (categoryIndex === -1) {
       categoryIndex = categoryHeaders.findIndex(h => {
         const lower = h.toLowerCase();
-        return lower.includes('学历') || lower.includes('edu') && category === '学历'
-          || lower.includes('经验') || lower.includes('exp') && category === '经验'
-          || lower.includes('院校') || lower.includes('school') && category === '院校';
+        return (lower.includes('学历') || (lower.includes('edu') && category === '学历'))
+          || (lower.includes('经验') || (lower.includes('exp') && category === '经验'))
+          || (lower.includes('院校') || (lower.includes('school') && category === '院校'));
       });
     }
 
