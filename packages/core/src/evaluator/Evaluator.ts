@@ -1,6 +1,6 @@
 // @hireclaw/core/evaluator — 评估引擎主入口
 //
-// 参考 Claude Code 的结构化评估模式：
+// 参考 HireCoder 的结构化评估模式：
 // - 清晰的维度定义（Dimensions.ts）
 // - 结构化报告生成（ReportGenerator.ts）
 // - 支持规则引擎评估（rules.ts）作为 fallback

@@ -1,6 +1,6 @@
 // @hireclaw/core/memory — MemoryStore 接口与实现
 //
-// 记忆存储的抽象接口（trait 模式），参考 Claude Code 的 ApiClient/ ToolExecutor trait 设计
+// 记忆存储的抽象接口（trait 模式），参考 HireCoder 的 ApiClient/ ToolExecutor trait 设计
 // 支持多种存储后端：InMemory（测试）、File（生产）、SQLite（未来扩展）
 
 import type { MemoryEntry } from '../types.js';
@@ -12,7 +12,7 @@ import type { MemoryEntry } from '../types.js';
 /**
  * 记忆存储接口（Trait）
  *
- * 参考 Claude Code 的 trait 抽象模式，将存储层解耦
+ * 参考 HireCoder 的 trait 抽象模式，将存储层解耦
  * 任何存储后端只需实现此接口即可接入
  */
 export interface IMemoryStore {

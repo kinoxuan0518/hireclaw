@@ -1,6 +1,6 @@
 // @hireclaw/core/pipeline/human — 人工介入机制
 //
-// 参考 Claude Code 的 Ordinal 权限模式，设计三层人工介入机制：
+// 参考 HireCoder 的 Ordinal 权限模式，设计三层人工介入机制：
 // - Ordinal 0: 完全自主（自动执行）
 // - Ordinal 1: 建议后执行（AI 推荐，人工确认）
 // - Ordinal 2: 完全人工（仅通知，不自动执行）
@@ -18,7 +18,7 @@ import type { StageId } from '../stages/Stage.js';
 // ────────────────────────────────────────────────────────────
 
 /**
- * Ordinal 权限级别（参考 Claude Code 的 Ordinal 权限模式）
+ * Ordinal 权限级别（参考 HireCoder 的 Ordinal 权限模式）
  *
  * - Ordinal 0: 完全自主，AI 自己决策
  * - Ordinal 1: 建议后执行，需要人工确认
@@ -148,7 +148,7 @@ export interface HumanInLoopStats {
 /**
  * 人工介入管理器
  *
- * 参考 Claude Code 的 Ordinal 权限模式：
+ * 参考 HireCoder 的 Ordinal 权限模式：
 // - Ordinal 0: 完全自主（自动执行）
 // - Ordinal 1: 建议后执行（AI 推荐，人工确认）
 // - Ordinal 2: 完全人工（仅通知，不自动执行）

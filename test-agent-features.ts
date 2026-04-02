@@ -1,5 +1,5 @@
 /**
- * Claude Code 独有功能测试
+ * HireCoder 独有功能测试
  * 测试所有新实现的功能
  */
 
@@ -7,7 +7,7 @@ import chalk from 'chalk';
 
 async function testClaudeFeatures() {
   console.log(chalk.cyan('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━'));
-  console.log(chalk.cyan('Claude Code 功能测试'));
+  console.log(chalk.cyan('HireCoder 功能测试'));
   console.log(chalk.cyan('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n'));
 
   // 1. Auto Memory

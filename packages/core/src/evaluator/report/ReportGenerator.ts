@@ -1,6 +1,6 @@
 // @hireclaw/core/evaluator/report — 评估报告生成
 //
-// 参考 Claude Code 的结构化输出模式，生成多格式评估报告
+// 参考 HireCoder 的结构化输出模式，生成多格式评估报告
 // - Markdown（人类可读）
 // - 结构化 JSON（机器可读）
 // - 飞书消息卡片（便于分享）

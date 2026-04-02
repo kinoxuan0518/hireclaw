@@ -1,18 +1,18 @@
 # @hireclaw/core/memory — 记忆系统
 
-> 参考 Claude Code 的双轨记忆（CLAUDE.md + Auto Memory）设计
+> 参考 HireCoder 的双轨记忆（AGENT.md + Auto Memory）设计
 
 ## 设计理念
 
-Claude Code 的记忆系统采用双轨架构：
-1. **CLAUDE.md** — 显式记忆，由用户手动维护项目上下文
+HireCoder 的记忆系统采用双轨架构：
+1. **AGENT.md** — 显式记忆，由用户手动维护项目上下文
 2. **Auto Memory** — 自动记忆，系统发现模式后自动记录
 
 hireclaw 的记忆系统借鉴这一理念，但面向招聘场景：
 
-| Claude Code | hireclaw |
+| HireCoder | hireclaw |
 |-------------|----------|
-| CLAUDE.md | DemandMemory（招聘需求记忆） |
+| AGENT.md | DemandMemory（招聘需求记忆） |
 | Auto Memory | CandidateMemory + AutoMemory |
 | 项目上下文 | 候选人信息 + 对话交互 |
 
@@ -30,7 +30,7 @@ memory/
 
 ## MemoryStore 接口设计
 
-参考 Claude Code 的 trait 模式（`ApiClient` + `ToolExecutor` trait），`MemoryStore` 也是个 trait/interface：
+参考 HireCoder 的 trait 模式（`ApiClient` + `ToolExecutor` trait），`MemoryStore` 也是个 trait/interface：
 
 ```typescript
 interface IMemoryStore {
@@ -81,7 +81,7 @@ class DemandMemory {
 
 ## AutoMemory 设计
 
-参考 Claude Code 的 `compact.rs` 结构化压缩摘要：
+参考 HireCoder 的 `compact.rs` 结构化压缩摘要：
 
 ```typescript
 class AutoMemory {
@@ -105,9 +105,9 @@ class AutoMemory {
 - `rejection_pattern` — 拒绝模式
 - `salary_expectation` — 薪资预期模式
 
-## 与 Claude Code 的关键借鉴点
+## 与 HireCoder 的关键借鉴点
 
-1. **结构化摘要而非截断** — Claude Code 的 `compact.rs` 不是简单截断消息，而是提取：消息统计、工具调用列表、待办推断、关键文件引用
+1. **结构化摘要而非截断** — HireCoder 的 `compact.rs` 不是简单截断消息，而是提取：消息统计、工具调用列表、待办推断、关键文件引用
 2. **关键词推断待办** — `infer_pending_work()` 用关键词（todo/next/pending）推断未完成工作
 3. **Ordinal 权限模式** — 记忆访问也有权限层级（只读 vs 读写）
 

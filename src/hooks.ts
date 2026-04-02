@@ -1,6 +1,6 @@
 /**
  * Hook 系统
- * 类似 Claude Code 的 Hook 机制
+ * 类似 HireCoder 的 Hook 机制
  * 在特定事件发生时自动执行 shell 命令
  */
 

@@ -1,6 +1,6 @@
 /**
  * Plan Mode - 交互式计划模式
- * 类似 Claude Code 的 EnterPlanMode/ExitPlanMode 工作流
+ * 类似 HireCoder 的 EnterPlanMode/ExitPlanMode 工作流
  */
 
 import fs from 'fs';

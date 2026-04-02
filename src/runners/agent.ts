@@ -8,7 +8,7 @@ import type { SkillResult } from '../types';
 
 const MAX_TURNS = 120;
 
-export class ClaudeRunner implements LLMRunner {
+export class AgentRunner implements LLMRunner {
   private client: Anthropic;
 
   constructor() {

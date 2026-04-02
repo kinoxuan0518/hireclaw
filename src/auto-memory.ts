@@ -1,6 +1,6 @@
 /**
  * Auto Memory - 跨会话自动学习和记忆系统
- * 类似 Claude Code 的 auto memory 功能
+ * 类似 HireCoder 的 auto memory 功能
  */
 
 import fs from 'fs';

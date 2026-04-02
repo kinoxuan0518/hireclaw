@@ -1,6 +1,6 @@
 // @hireclaw/core/memory — 候选人记忆管理
 //
-// 跨会话记住候选人信息，参考 Claude Code 的 Auto Memory 理念
+// 跨会话记住候选人信息，参考 HireCoder 的 Auto Memory 理念
 // - 每次触达后自动记录评估快照
 // - 记录关键交互和决策
 // - 支持通过候选人 ID 召回历史
@@ -340,7 +340,7 @@ export class CandidateMemory {
   }
 
   /**
-   * 生成结构化摘要（参考 Claude Code compact.rs）
+   * 生成结构化摘要（参考 HireCoder compact.rs）
    * 用于上下文压缩时保留关键信息
    */
   async generateSummary(candidateId: string): Promise<string> {

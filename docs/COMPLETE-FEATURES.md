@@ -1,459 +1,459 @@
-# HireClaw 完整功能文档
+﻿# HireClaw 瀹屾暣鍔熻兘鏂囨。
 
-**HireClaw = Claude Code 100% + 招聘专业能力**
+**HireClaw = HireCoder 100% + 鎷涜仒涓撲笟鑳藉姏**
 
 ---
 
-## 功能对比总表
+## 鍔熻兘瀵规瘮鎬昏〃
 
-| 功能类别 | Claude Code | HireClaw | 实现状态 |
+| 鍔熻兘绫诲埆 | HireCoder | HireClaw | 瀹炵幇鐘舵€?|
 |---------|-------------|----------|---------|
-| **Phase 1-3: 基础功能** ||||
-| 计划模式 (Plan Mode) | ✅ | ✅ | 100% |
-| 文件搜索 (Glob) | ✅ | ✅ | 100% |
-| 内容搜索 (Grep) | ✅ | ✅ | 100% |
-| 错误恢复 (Error Recovery) | ✅ | ✅ | 100% |
-| 任务管理 (Task Management) | ✅ | ✅ | 100% |
-| MCP 协议 (MCP Protocol) | ✅ | ✅ | 100% |
-| Git 自动化 (Git Automation) | ✅ | ✅ | 100% |
-| **Phase 4: Claude Code 独有功能** ||||
-| 自动记忆 (Auto Memory) | ✅ | ✅ | 100% |
-| 结构化问答 (AskUserQuestion) | ✅ | ✅ | 100% |
-| PDF 阅读 (PDF Reading) | ✅ | ✅ | 100% |
-| 技能系统 (Skill System) | ✅ | ✅ | 100% |
-| **Phase 5: 高级功能** ||||
-| 权限系统 (Permission System) | ✅ | ✅ | 100% |
-| 交互式计划模式 (EnterPlanMode) | ✅ | ✅ | 100% |
-| Hook 系统 (Hook System) | ✅ | ✅ | 100% |
-| 上下文自动压缩 | ✅ | ✅ | 100% |
-| 远程会话 (Remote Sessions) | ✅ | ✅ | 100% |
-| **可选功能** ||||
-| Notebook 编辑 | ✅ | ❌ | 招聘不需要 |
-| Fast Mode | ✅ | ❌ | 未来考虑 |
-| **HireClaw 独有** ||||
-| 浏览器自动化 | ❌ | ✅ | Playwright |
-| 多账号并行 | ❌ | ✅ | 效率翻倍 |
-| 招聘知识库 | ❌ | ✅ | SOUL.md/PLAYBOOK.md |
-| 候选人管理 | ❌ | ✅ | 状态追踪 |
-| 实时控制台 | ❌ | ✅ | Web Dashboard |
-| 主动提醒 | ❌ | ✅ | macOS 通知 |
+| **Phase 1-3: 鍩虹鍔熻兘** ||||
+| 璁″垝妯″紡 (Plan Mode) | 鉁?| 鉁?| 100% |
+| 鏂囦欢鎼滅储 (Glob) | 鉁?| 鉁?| 100% |
+| 鍐呭鎼滅储 (Grep) | 鉁?| 鉁?| 100% |
+| 閿欒鎭㈠ (Error Recovery) | 鉁?| 鉁?| 100% |
+| 浠诲姟绠＄悊 (Task Management) | 鉁?| 鉁?| 100% |
+| MCP 鍗忚 (MCP Protocol) | 鉁?| 鉁?| 100% |
+| Git 鑷姩鍖?(Git Automation) | 鉁?| 鉁?| 100% |
+| **Phase 4: HireCoder 鐙湁鍔熻兘** ||||
+| 鑷姩璁板繂 (Auto Memory) | 鉁?| 鉁?| 100% |
+| 缁撴瀯鍖栭棶绛?(AskUserQuestion) | 鉁?| 鉁?| 100% |
+| PDF 闃呰 (PDF Reading) | 鉁?| 鉁?| 100% |
+| 鎶€鑳界郴缁?(Skill System) | 鉁?| 鉁?| 100% |
+| **Phase 5: 楂樼骇鍔熻兘** ||||
+| 鏉冮檺绯荤粺 (Permission System) | 鉁?| 鉁?| 100% |
+| 浜や簰寮忚鍒掓ā寮?(EnterPlanMode) | 鉁?| 鉁?| 100% |
+| Hook 绯荤粺 (Hook System) | 鉁?| 鉁?| 100% |
+| 涓婁笅鏂囪嚜鍔ㄥ帇缂?| 鉁?| 鉁?| 100% |
+| 杩滅▼浼氳瘽 (Remote Sessions) | 鉁?| 鉁?| 100% |
+| **鍙€夊姛鑳?* ||||
+| Notebook 缂栬緫 | 鉁?| 鉂?| 鎷涜仒涓嶉渶瑕?|
+| Fast Mode | 鉁?| 鉂?| 鏈潵鑰冭檻 |
+| **HireClaw 鐙湁** ||||
+| 娴忚鍣ㄨ嚜鍔ㄥ寲 | 鉂?| 鉁?| Playwright |
+| 澶氳处鍙峰苟琛?| 鉂?| 鉁?| 鏁堢巼缈诲€?|
+| 鎷涜仒鐭ヨ瘑搴?| 鉂?| 鉁?| SOUL.md/PLAYBOOK.md |
+| 鍊欓€変汉绠＄悊 | 鉂?| 鉁?| 鐘舵€佽拷韪?|
+| 瀹炴椂鎺у埗鍙?| 鉂?| 鉁?| Web Dashboard |
+| 涓诲姩鎻愰啋 | 鉂?| 鉁?| macOS 閫氱煡 |
 
-**总结**: HireClaw 实现了 Claude Code 所有核心功能（100%），并拥有招聘领域的独特优势。
-
----
-
-## 完整工具列表（40+ 工具）
-
-### 1. 执行控制（2 个）
-- `run_sourcing` - 执行 sourcing 任务
-- `scan_inbox` - 扫描收件箱
-
-### 2. 候选人管理（4 个）
-- `update_candidate` - 更新候选人状态
-- `list_candidates` - 列出候选人
-- `search_candidate` - 搜索候选人
-- `get_funnel` - 查看招聘漏斗
-
-### 3. 文件操作（4 个）
-- `read_file` - 读取文件
-- `write_file` - 写入文件
-- `read_pdf` - 读取 PDF
-- `analyze_image` - 分析图片
-
-### 4. 网络与搜索（3 个）
-- `web_search` - 网络搜索
-- `glob` - 文件模式搜索
-- `grep` - 内容搜索
-
-### 5. 代码操作（3 个）
-- `read_code` - 读取代码
-- `modify_code` - 修改代码
-- `execute_shell` - 执行 shell 命令
-
-### 6. Git 自动化（5 个）
-- `git_status` - 查看 git 状态
-- `git_commit` - 提交代码
-- `git_create_branch` - 创建分支
-- `git_push` - 推送到远程
-- `git_create_pr` - 创建 GitHub PR
-
-### 7. MCP 集成（3 个）
-- `mcp_list_servers` - 列出 MCP 服务器
-- `mcp_call_tool` - 调用 MCP 工具
-- `mcp_read_resource` - 读取 MCP 资源
-
-### 8. 任务管理（3 个）
-- `create_task` - 创建任务
-- `update_task` - 更新任务
-- `list_tasks` - 列出任务
-
-### 9. 自动记忆（4 个）
-- `remember` - 记住内容
-- `forget` - 忘记内容
-- `recall_memory` - 回忆记忆
-- `search_past_context` - 搜索历史
-
-### 10. 交互工具（2 个）
-- `ask_user_question` - 结构化问答
-- `read_pdf` - PDF 阅读
-
-### 11. 计划模式（2 个）
-- `enter_plan_mode` - 进入计划模式
-- `exit_plan_mode` - 退出计划模式
-
-### 12. 权限管理（2 个）
-- `list_permissions` - 查看权限规则
-- `clear_permissions` - 清除权限规则
-
-### 13. Hook 系统（3 个）
-- `list_hooks` - 查看 hooks
-- `add_hook` - 添加 hook
-- `remove_hook` - 删除 hook
-
-### 14. 远程会话（4 个）
-- `export_session` - 导出会话
-- `list_sessions` - 列出会话
-- `open_session` - 打开会话
-- `copy_session` - 复制到剪贴板
-
-**总计：44 对话工具 + 2 命令（/export, /sessions）**
+**鎬荤粨**: HireClaw 瀹炵幇浜?HireCoder 鎵€鏈夋牳蹇冨姛鑳斤紙100%锛夛紝骞舵嫢鏈夋嫑鑱橀鍩熺殑鐙壒浼樺娍銆?
 
 ---
 
-## 核心实现文件
+## 瀹屾暣宸ュ叿鍒楄〃锛?0+ 宸ュ叿锛?
 
-### Phase 1-3: 基础功能
-```
-src/
-├── planner.ts              # 计划模式
-├── tools/
-│   ├── glob.ts            # 文件搜索
-│   └── grep.ts            # 内容搜索
-├── error-detector.ts       # 错误检测
-├── retry-handler.ts        # 重试逻辑
-├── tasks.ts                # 任务管理
-├── mcp-client.ts           # MCP 协议
-└── git-helper.ts           # Git 自动化
-```
+### 1. 鎵ц鎺у埗锛? 涓級
+- `run_sourcing` - 鎵ц sourcing 浠诲姟
+- `scan_inbox` - 鎵弿鏀朵欢绠?
 
-### Phase 4: Claude Code 独有功能
-```
-src/
-├── auto-memory.ts          # 自动记忆系统
-├── ask-user.ts            # 结构化问答
-├── pdf-reader.ts          # PDF 阅读
-└── skill-system.ts        # 技能系统
-```
+### 2. 鍊欓€変汉绠＄悊锛? 涓級
+- `update_candidate` - 鏇存柊鍊欓€変汉鐘舵€?
+- `list_candidates` - 鍒楀嚭鍊欓€変汉
+- `search_candidate` - 鎼滅储鍊欓€変汉
+- `get_funnel` - 鏌ョ湅鎷涜仒婕忔枟
 
-### Phase 5: 高级功能
-```
-src/
-├── permissions.ts          # 权限系统
-├── plan-mode.ts           # 交互式计划模式
-├── hooks.ts               # Hook 系统
-└── context-compression.ts # 上下文压缩
-```
+### 3. 鏂囦欢鎿嶄綔锛? 涓級
+- `read_file` - 璇诲彇鏂囦欢
+- `write_file` - 鍐欏叆鏂囦欢
+- `read_pdf` - 璇诲彇 PDF
+- `analyze_image` - 鍒嗘瀽鍥剧墖
 
-### 招聘专业功能
-```
-src/
-├── orchestrator.ts        # 任务协调
-├── browser-runner.ts      # 浏览器控制
-├── accounts.ts            # 多账号管理
-├── dashboard.ts           # 实时控制台
-├── notifier.ts            # 主动提醒
-└── skills/loader.ts       # Skill 加载器
-```
+### 4. 缃戠粶涓庢悳绱紙3 涓級
+- `web_search` - 缃戠粶鎼滅储
+- `glob` - 鏂囦欢妯″紡鎼滅储
+- `grep` - 鍐呭鎼滅储
 
-**总计：50+ 源代码文件**
+### 5. 浠ｇ爜鎿嶄綔锛? 涓級
+- `read_code` - 璇诲彇浠ｇ爜
+- `modify_code` - 淇敼浠ｇ爜
+- `execute_shell` - 鎵ц shell 鍛戒护
+
+### 6. Git 鑷姩鍖栵紙5 涓級
+- `git_status` - 鏌ョ湅 git 鐘舵€?
+- `git_commit` - 鎻愪氦浠ｇ爜
+- `git_create_branch` - 鍒涘缓鍒嗘敮
+- `git_push` - 鎺ㄩ€佸埌杩滅▼
+- `git_create_pr` - 鍒涘缓 GitHub PR
+
+### 7. MCP 闆嗘垚锛? 涓級
+- `mcp_list_servers` - 鍒楀嚭 MCP 鏈嶅姟鍣?
+- `mcp_call_tool` - 璋冪敤 MCP 宸ュ叿
+- `mcp_read_resource` - 璇诲彇 MCP 璧勬簮
+
+### 8. 浠诲姟绠＄悊锛? 涓級
+- `create_task` - 鍒涘缓浠诲姟
+- `update_task` - 鏇存柊浠诲姟
+- `list_tasks` - 鍒楀嚭浠诲姟
+
+### 9. 鑷姩璁板繂锛? 涓級
+- `remember` - 璁颁綇鍐呭
+- `forget` - 蹇樿鍐呭
+- `recall_memory` - 鍥炲繂璁板繂
+- `search_past_context` - 鎼滅储鍘嗗彶
+
+### 10. 浜や簰宸ュ叿锛? 涓級
+- `ask_user_question` - 缁撴瀯鍖栭棶绛?
+- `read_pdf` - PDF 闃呰
+
+### 11. 璁″垝妯″紡锛? 涓級
+- `enter_plan_mode` - 杩涘叆璁″垝妯″紡
+- `exit_plan_mode` - 閫€鍑鸿鍒掓ā寮?
+
+### 12. 鏉冮檺绠＄悊锛? 涓級
+- `list_permissions` - 鏌ョ湅鏉冮檺瑙勫垯
+- `clear_permissions` - 娓呴櫎鏉冮檺瑙勫垯
+
+### 13. Hook 绯荤粺锛? 涓級
+- `list_hooks` - 鏌ョ湅 hooks
+- `add_hook` - 娣诲姞 hook
+- `remove_hook` - 鍒犻櫎 hook
+
+### 14. 杩滅▼浼氳瘽锛? 涓級
+- `export_session` - 瀵煎嚭浼氳瘽
+- `list_sessions` - 鍒楀嚭浼氳瘽
+- `open_session` - 鎵撳紑浼氳瘽
+- `copy_session` - 澶嶅埗鍒板壀璐存澘
+
+**鎬昏锛?4 瀵硅瘽宸ュ叿 + 2 鍛戒护锛?export, /sessions锛?*
 
 ---
 
-## 文档完整度
+## 鏍稿績瀹炵幇鏂囦欢
+
+### Phase 1-3: 鍩虹鍔熻兘
+```
+src/
+鈹溾攢鈹€ planner.ts              # 璁″垝妯″紡
+鈹溾攢鈹€ tools/
+鈹?  鈹溾攢鈹€ glob.ts            # 鏂囦欢鎼滅储
+鈹?  鈹斺攢鈹€ grep.ts            # 鍐呭鎼滅储
+鈹溾攢鈹€ error-detector.ts       # 閿欒妫€娴?
+鈹溾攢鈹€ retry-handler.ts        # 閲嶈瘯閫昏緫
+鈹溾攢鈹€ tasks.ts                # 浠诲姟绠＄悊
+鈹溾攢鈹€ mcp-client.ts           # MCP 鍗忚
+鈹斺攢鈹€ git-helper.ts           # Git 鑷姩鍖?
+```
+
+### Phase 4: HireCoder 鐙湁鍔熻兘
+```
+src/
+鈹溾攢鈹€ auto-memory.ts          # 鑷姩璁板繂绯荤粺
+鈹溾攢鈹€ ask-user.ts            # 缁撴瀯鍖栭棶绛?
+鈹溾攢鈹€ pdf-reader.ts          # PDF 闃呰
+鈹斺攢鈹€ skill-system.ts        # 鎶€鑳界郴缁?
+```
+
+### Phase 5: 楂樼骇鍔熻兘
+```
+src/
+鈹溾攢鈹€ permissions.ts          # 鏉冮檺绯荤粺
+鈹溾攢鈹€ plan-mode.ts           # 浜や簰寮忚鍒掓ā寮?
+鈹溾攢鈹€ hooks.ts               # Hook 绯荤粺
+鈹斺攢鈹€ context-compression.ts # 涓婁笅鏂囧帇缂?
+```
+
+### 鎷涜仒涓撲笟鍔熻兘
+```
+src/
+鈹溾攢鈹€ orchestrator.ts        # 浠诲姟鍗忚皟
+鈹溾攢鈹€ browser-runner.ts      # 娴忚鍣ㄦ帶鍒?
+鈹溾攢鈹€ accounts.ts            # 澶氳处鍙风鐞?
+鈹溾攢鈹€ dashboard.ts           # 瀹炴椂鎺у埗鍙?
+鈹溾攢鈹€ notifier.ts            # 涓诲姩鎻愰啋
+鈹斺攢鈹€ skills/loader.ts       # Skill 鍔犺浇鍣?
+```
+
+**鎬昏锛?0+ 婧愪唬鐮佹枃浠?*
+
+---
+
+## 鏂囨。瀹屾暣搴?
 
 ```
 docs/
-├── CLAUDE-CODE-FEATURES.md    # Claude Code 功能对比
-├── COMPLETE-FEATURES.md        # 完整功能文档（本文档）
-├── GIT-AUTOMATION.md           # Git 使用指南
-├── MCP-GUIDE.md                # MCP 使用指南
-└── IMPLEMENTATION-SUMMARY.md   # 实现总结
+鈹溾攢鈹€ HIRECODER-FEATURES.md    # HireCoder 鍔熻兘瀵规瘮
+鈹溾攢鈹€ COMPLETE-FEATURES.md        # 瀹屾暣鍔熻兘鏂囨。锛堟湰鏂囨。锛?
+鈹溾攢鈹€ GIT-AUTOMATION.md           # Git 浣跨敤鎸囧崡
+鈹溾攢鈹€ MCP-GUIDE.md                # MCP 浣跨敤鎸囧崡
+鈹斺攢鈹€ IMPLEMENTATION-SUMMARY.md   # 瀹炵幇鎬荤粨
 
 workspace/
-├── SOUL.md                     # Agent 灵魂
-├── PLAYBOOK.md                 # 工作流手册
-├── memory/                     # 自动记忆
-│   ├── MEMORY.md
-│   ├── recruiting-patterns.md
-│   ├── candidate-preferences.md
-│   ├── debugging.md
-│   └── workflow.md
-└── chat-skills/                # 对话技能
-    ├── find-candidates.md
-    ├── analyze-resume.md
-    ├── funnel.md
-    └── commit.md
+鈹溾攢鈹€ SOUL.md                     # Agent 鐏甸瓊
+鈹溾攢鈹€ PLAYBOOK.md                 # 宸ヤ綔娴佹墜鍐?
+鈹溾攢鈹€ memory/                     # 鑷姩璁板繂
+鈹?  鈹溾攢鈹€ MEMORY.md
+鈹?  鈹溾攢鈹€ recruiting-patterns.md
+鈹?  鈹溾攢鈹€ candidate-preferences.md
+鈹?  鈹溾攢鈹€ debugging.md
+鈹?  鈹斺攢鈹€ workflow.md
+鈹斺攢鈹€ chat-skills/                # 瀵硅瘽鎶€鑳?
+    鈹溾攢鈹€ find-candidates.md
+    鈹溾攢鈹€ analyze-resume.md
+    鈹溾攢鈹€ funnel.md
+    鈹斺攢鈹€ commit.md
 
-test-*.ts                       # 功能测试脚本
+test-*.ts                       # 鍔熻兘娴嬭瘯鑴氭湰
 ```
 
-**文档完整度：100%**
+**鏂囨。瀹屾暣搴︼細100%**
 
 ---
 
-## 使用示例
+## 浣跨敤绀轰緥
 
-### 1. 基础对话
+### 1. 鍩虹瀵硅瘽
 ```bash
 hireclaw
 
-你: 帮我找前端工程师
-AI: [调用 run_sourcing]
-    ✓ BOSS直聘：15 人
-    ✓ 脉脉：8 人
+浣? 甯垜鎵惧墠绔伐绋嬪笀
+AI: [璋冪敤 run_sourcing]
+    鉁?BOSS鐩磋仒锛?5 浜?
+    鉁?鑴夎剦锛? 浜?
 ```
 
-### 2. 自动记忆
+### 2. 鑷姩璁板繂
 ```bash
-你: 记住：这个公司的候选人通常是 React 技术栈
-AI: [调用 remember]
-    ✓ 已记住
+浣? 璁颁綇锛氳繖涓叕鍙哥殑鍊欓€変汉閫氬父鏄?React 鎶€鏈爤
+AI: [璋冪敤 remember]
+    鉁?宸茶浣?
 
-# 下次对话时
-AI: 根据你之前的偏好，我知道这个公司通常需要 React 技术栈...
+# 涓嬫瀵硅瘽鏃?
+AI: 鏍规嵁浣犱箣鍓嶇殑鍋忓ソ锛屾垜鐭ラ亾杩欎釜鍏徃閫氬父闇€瑕?React 鎶€鏈爤...
 ```
 
-### 3. 结构化问答
+### 3. 缁撴瀯鍖栭棶绛?
 ```bash
-你: 帮我找候选人
+浣? 甯垜鎵惧€欓€変汉
 
-AI: [调用 ask_user_question]
-    优先看重哪方面？
-    1. 大厂背景
-    2. 创业经历
-    3. 技术深度
+AI: [璋冪敤 ask_user_question]
+    浼樺厛鐪嬮噸鍝柟闈紵
+    1. 澶у巶鑳屾櫙
+    2. 鍒涗笟缁忓巻
+    3. 鎶€鏈繁搴?
 
-你: 1
+浣? 1
 
-AI: 好的，我会优先寻找大厂背景的候选人
+AI: 濂界殑锛屾垜浼氫紭鍏堝鎵惧ぇ鍘傝儗鏅殑鍊欓€変汉
 ```
 
-### 4. PDF 简历分析
+### 4. PDF 绠€鍘嗗垎鏋?
 ```bash
-你: 分析这份简历 /path/to/resume.pdf
+浣? 鍒嗘瀽杩欎唤绠€鍘?/path/to/resume.pdf
 
-AI: [调用 read_pdf]
-    姓名：张三
-    经验：5 年前端
-    技术栈：React, TypeScript
-    评估：⭐⭐⭐⭐
+AI: [璋冪敤 read_pdf]
+    濮撳悕锛氬紶涓?
+    缁忛獙锛? 骞村墠绔?
+    鎶€鏈爤锛歊eact, TypeScript
+    璇勪及锛氣瓙猸愨瓙猸?
 ```
 
-### 5. 技能快捷调用
+### 5. 鎶€鑳藉揩鎹疯皟鐢?
 ```bash
-你: /找候选人 前端工程师
-AI: [执行 find-candidates skill]
-    开始搜索...
+浣? /鎵惧€欓€変汉 鍓嶇宸ョ▼甯?
+AI: [鎵ц find-candidates skill]
+    寮€濮嬫悳绱?..
 
-你: /commit
-AI: [执行 commit skill]
-    ✓ 提交成功
+浣? /commit
+AI: [鎵ц commit skill]
+    鉁?鎻愪氦鎴愬姛
 ```
 
-### 6. 计划模式
+### 6. 璁″垝妯″紡
 ```bash
-你: 帮我制定本周招聘策略
+浣? 甯垜鍒跺畾鏈懆鎷涜仒绛栫暐
 
-AI: [调用 enter_plan_mode]
-    进入计划模式...
+AI: [璋冪敤 enter_plan_mode]
+    杩涘叆璁″垝妯″紡...
 
-    [探索阶段]
-    - 读取历史数据
-    - 分析渠道效果
+    [鎺㈢储闃舵]
+    - 璇诲彇鍘嗗彶鏁版嵁
+    - 鍒嗘瀽娓犻亾鏁堟灉
 
-    [设计阶段]
-    我制定了以下计划：
-    1. 增加 BOSS直聘预算
-    2. 优化脉脉话术
+    [璁捐闃舵]
+    鎴戝埗瀹氫簡浠ヤ笅璁″垝锛?
+    1. 澧炲姞 BOSS鐩磋仒棰勭畻
+    2. 浼樺寲鑴夎剦璇濇湳
 
-    是否批准？
+    鏄惁鎵瑰噯锛?
 
-你: 批准
+浣? 鎵瑰噯
 
-AI: [调用 exit_plan_mode]
-    开始执行计划...
+AI: [璋冪敤 exit_plan_mode]
+    寮€濮嬫墽琛岃鍒?..
 ```
 
-### 7. 权限控制
+### 7. 鏉冮檺鎺у埗
 ```bash
-AI: [准备] git_push(force=true)
+AI: [鍑嗗] git_push(force=true)
 
-系统:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚠️  危险操作需要确认
+绯荤粺:
+鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣
+鈿狅笍  鍗遍櫓鎿嶄綔闇€瑕佺‘璁?
 
-工具: git_push
-参数: force=true
+宸ュ叿: git_push
+鍙傛暟: force=true
 
-警告: 强制推送会覆盖远程分支历史
+璀﹀憡: 寮哄埗鎺ㄩ€佷細瑕嗙洊杩滅▼鍒嗘敮鍘嗗彶
 
-1. 批准（仅此次）
-2. 批准所有 git_push
-3. 拒绝（仅此次）
-4. 拒绝所有 git_push
+1. 鎵瑰噯锛堜粎姝ゆ锛?
+2. 鎵瑰噯鎵€鏈?git_push
+3. 鎷掔粷锛堜粎姝ゆ锛?
+4. 鎷掔粷鎵€鏈?git_push
 
-你: 1
+浣? 1
 
-AI: ✓ 已推送
+AI: 鉁?宸叉帹閫?
 ```
 
-### 8. Hook 系统
+### 8. Hook 绯荤粺
 ```bash
-你: 添加一个 hook，在 commit 后运行测试
+浣? 娣诲姞涓€涓?hook锛屽湪 commit 鍚庤繍琛屾祴璇?
 
-AI: [调用 add_hook]
+AI: [璋冪敤 add_hook]
     hook_name: post-commit
     command: npm test
 
-    ✓ 已添加
+    鉁?宸叉坊鍔?
 
-# 下次 commit 时
-AI: [执行] git commit
-    [Hook] 执行 post-commit: npm test
-    ✓ 测试通过
+# 涓嬫 commit 鏃?
+AI: [鎵ц] git commit
+    [Hook] 鎵ц post-commit: npm test
+    鉁?娴嬭瘯閫氳繃
 ```
 
-### 9. Git 自动化
+### 9. Git 鑷姩鍖?
 ```bash
-你: 查看 git 状态
-AI: 当前分支：main
-    已修改 (3):
+浣? 鏌ョ湅 git 鐘舵€?
+AI: 褰撳墠鍒嗘敮锛歮ain
+    宸蹭慨鏀?(3):
       M src/chat.ts
       M README.md
 
-你: 提交所有改动，消息"feat: add permissions"
-AI: ✓ SHA: a1b2c3d4
+浣? 鎻愪氦鎵€鏈夋敼鍔紝娑堟伅"feat: add permissions"
+AI: 鉁?SHA: a1b2c3d4
 
-你: 创建 PR
-AI: ✓ URL: https://github.com/user/hireclaw/pull/123
+浣? 鍒涘缓 PR
+AI: 鉁?URL: https://github.com/user/hireclaw/pull/123
 ```
 
 ---
 
-## 技术架构
+## 鎶€鏈灦鏋?
 
-### 核心技术栈
-- **Node.js 22+** - 运行时
-- **TypeScript** - 类型安全
-- **Playwright** - 浏览器自动化
-- **OpenAI SDK** - LLM 调用
-- **better-sqlite3** - 数据持久化
-- **MCP SDK** - 外部服务集成
+### 鏍稿績鎶€鏈爤
+- **Node.js 22+** - 杩愯鏃?
+- **TypeScript** - 绫诲瀷瀹夊叏
+- **Playwright** - 娴忚鍣ㄨ嚜鍔ㄥ寲
+- **OpenAI SDK** - LLM 璋冪敤
+- **better-sqlite3** - 鏁版嵁鎸佷箙鍖?
+- **MCP SDK** - 澶栭儴鏈嶅姟闆嗘垚
 
-### 设计模式
-- **模块化** - 每个功能独立模块
-- **事件驱动** - 全局事件总线
-- **插件化** - Skill 和 Hook 系统
-- **分层架构** - 清晰的职责分离
+### 璁捐妯″紡
+- **妯″潡鍖?* - 姣忎釜鍔熻兘鐙珛妯″潡
+- **浜嬩欢椹卞姩** - 鍏ㄥ眬浜嬩欢鎬荤嚎
+- **鎻掍欢鍖?* - Skill 鍜?Hook 绯荤粺
+- **鍒嗗眰鏋舵瀯** - 娓呮櫚鐨勮亴璐ｅ垎绂?
 
-### 数据存储
+### 鏁版嵁瀛樺偍
 ```
 workspace/
-├── memory/              # Auto Memory
-├── chat-skills/         # 技能定义
-├── plans/               # 计划文档
-├── accounts/            # 登录状态
-├── checkpoints/         # 错误恢复
-├── .permissions.json    # 权限规则
-└── hooks.json          # Hook 配置
+鈹溾攢鈹€ memory/              # Auto Memory
+鈹溾攢鈹€ chat-skills/         # 鎶€鑳藉畾涔?
+鈹溾攢鈹€ plans/               # 璁″垝鏂囨。
+鈹溾攢鈹€ accounts/            # 鐧诲綍鐘舵€?
+鈹溾攢鈹€ checkpoints/         # 閿欒鎭㈠
+鈹溾攢鈹€ .permissions.json    # 鏉冮檺瑙勫垯
+鈹斺攢鈹€ hooks.json          # Hook 閰嶇疆
 
-hireclaw.db             # SQLite 数据库
-└── tables:
-    ├── candidates      # 候选人
-    ├── conversations   # 对话历史
-    └── tasks           # 任务
+hireclaw.db             # SQLite 鏁版嵁搴?
+鈹斺攢鈹€ tables:
+    鈹溾攢鈹€ candidates      # 鍊欓€変汉
+    鈹溾攢鈹€ conversations   # 瀵硅瘽鍘嗗彶
+    鈹斺攢鈹€ tasks           # 浠诲姟
 ```
 
 ---
 
-## 性能指标
+## 鎬ц兘鎸囨爣
 
-### 功能覆盖率
-- **Claude Code 核心功能**: 100%
-- **对话工具数量**: 40+
-- **代码文件**: 50+
-- **文档完整度**: 100%
+### 鍔熻兘瑕嗙洊鐜?
+- **HireCoder 鏍稿績鍔熻兘**: 100%
+- **瀵硅瘽宸ュ叿鏁伴噺**: 40+
+- **浠ｇ爜鏂囦欢**: 50+
+- **鏂囨。瀹屾暣搴?*: 100%
 
-### 效率提升
-- **多账号并行**: 2 个账号 = 2 倍速度
-- **智能压缩**: 保留重要信息，节省 50%+ tokens
-- **错误恢复**: 断点续传，避免重复工作
-- **自动记忆**: 跨会话学习，减少重复沟通
+### 鏁堢巼鎻愬崌
+- **澶氳处鍙峰苟琛?*: 2 涓处鍙?= 2 鍊嶉€熷害
+- **鏅鸿兘鍘嬬缉**: 淇濈暀閲嶈淇℃伅锛岃妭鐪?50%+ tokens
+- **閿欒鎭㈠**: 鏂偣缁紶锛岄伩鍏嶉噸澶嶅伐浣?
+- **鑷姩璁板繂**: 璺ㄤ細璇濆涔狅紝鍑忓皯閲嶅娌熼€?
 
-### 用户体验
-- **权限控制**: 危险操作二次确认
-- **结构化问答**: 友好的选择界面
-- **实时反馈**: Web 控制台 + 系统通知
-- **技能快捷**: `/命令` 一键执行
+### 鐢ㄦ埛浣撻獙
+- **鏉冮檺鎺у埗**: 鍗遍櫓鎿嶄綔浜屾纭
+- **缁撴瀯鍖栭棶绛?*: 鍙嬪ソ鐨勯€夋嫨鐣岄潰
+- **瀹炴椂鍙嶉**: Web 鎺у埗鍙?+ 绯荤粺閫氱煡
+- **鎶€鑳藉揩鎹?*: `/鍛戒护` 涓€閿墽琛?
 
 ---
 
-## 与 Claude Code 的差异优势
+## 涓?HireCoder 鐨勫樊寮備紭鍔?
 
-| 维度 | Claude Code | HireClaw | 优势方 |
+| 缁村害 | HireCoder | HireClaw | 浼樺娍鏂?|
 |------|-------------|----------|--------|
-| **核心功能** | ✅ 完整 | ✅ 完整 | 平局 |
-| **领域专业性** | ❌ 通用 | ✅ 招聘专家 | **HireClaw** |
-| **自动化能力** | ❌ 无 | ✅ 浏览器自动化 | **HireClaw** |
-| **并行效率** | ❌ 单线程 | ✅ 多账号并行 | **HireClaw** |
-| **实时监控** | ❌ 无 | ✅ Web Dashboard | **HireClaw** |
-| **主动性** | ❌ 被动 | ✅ 主动提醒 | **HireClaw** |
-| **Notebook 编辑** | ✅ 支持 | ❌ 不支持 | Claude Code |
-| **远程会话** | ✅ 支持 | ❌ 不支持 | Claude Code |
+| **鏍稿績鍔熻兘** | 鉁?瀹屾暣 | 鉁?瀹屾暣 | 骞冲眬 |
+| **棰嗗煙涓撲笟鎬?* | 鉂?閫氱敤 | 鉁?鎷涜仒涓撳 | **HireClaw** |
+| **鑷姩鍖栬兘鍔?* | 鉂?鏃?| 鉁?娴忚鍣ㄨ嚜鍔ㄥ寲 | **HireClaw** |
+| **骞惰鏁堢巼** | 鉂?鍗曠嚎绋?| 鉁?澶氳处鍙峰苟琛?| **HireClaw** |
+| **瀹炴椂鐩戞帶** | 鉂?鏃?| 鉁?Web Dashboard | **HireClaw** |
+| **涓诲姩鎬?* | 鉂?琚姩 | 鉁?涓诲姩鎻愰啋 | **HireClaw** |
+| **Notebook 缂栬緫** | 鉁?鏀寔 | 鉂?涓嶆敮鎸?| HireCoder |
+| **杩滅▼浼氳瘽** | 鉁?鏀寔 | 鉂?涓嶆敮鎸?| HireCoder |
 
-**结论**: HireClaw 在保持 Claude Code 所有核心能力的基础上，增加了招聘领域的专业优势和自动化能力。
-
----
-
-## 下一步计划（可选）
-
-### 已完成 ✅
-- Phase 1-3: 基础功能（计划、搜索、恢复、任务、MCP、Git）
-- Phase 4: Claude Code 独有（记忆、问答、PDF、技能）
-- Phase 5: 高级功能（权限、计划模式、Hook、压缩）
-
-### 未来考虑
-- [ ] Notebook 编辑（如需要数据分析场景）
-- [ ] 远程会话推送（如需要移动端访问）
-- [ ] Fast Mode（输出速度优化）
-- [ ] 多语言支持（英文界面）
-- [ ] Web UI 改进（更丰富的可视化）
+**缁撹**: HireClaw 鍦ㄤ繚鎸?HireCoder 鎵€鏈夋牳蹇冭兘鍔涚殑鍩虹涓婏紝澧炲姞浜嗘嫑鑱橀鍩熺殑涓撲笟浼樺娍鍜岃嚜鍔ㄥ寲鑳藉姏銆?
 
 ---
 
-## 总结
+## 涓嬩竴姝ヨ鍒掞紙鍙€夛級
 
-### 🎯 核心成就
-1. **100% 实现 Claude Code 核心功能**
-2. **40+ 对话工具**
-3. **50+ 源代码文件**
-4. **100% 文档覆盖**
-5. **招聘领域专业能力**
+### 宸插畬鎴?鉁?
+- Phase 1-3: 鍩虹鍔熻兘锛堣鍒掋€佹悳绱€佹仮澶嶃€佷换鍔°€丮CP銆丟it锛?
+- Phase 4: HireCoder 鐙湁锛堣蹇嗐€侀棶绛斻€丳DF銆佹妧鑳斤級
+- Phase 5: 楂樼骇鍔熻兘锛堟潈闄愩€佽鍒掓ā寮忋€丠ook銆佸帇缂╋級
 
-### 🚀 独特优势
-1. **智能招聘助手**：SOUL.md + PLAYBOOK.md 招聘知识
-2. **浏览器自动化**：Playwright 自主 sourcing
-3. **多账号并行**：效率翻倍
-4. **实时控制台**：Web Dashboard 可视化
-5. **主动提醒**：macOS 系统通知
-
-### 💡 使用价值
-- **招聘人员**：自动化 sourcing，提升 3-5 倍效率
-- **开发者**：完整的 Claude Code 能力，可用于开发工作
-- **团队协作**：MCP 集成 Slack、GitHub 等服务
+### 鏈潵鑰冭檻
+- [ ] Notebook 缂栬緫锛堝闇€瑕佹暟鎹垎鏋愬満鏅級
+- [ ] 杩滅▼浼氳瘽鎺ㄩ€侊紙濡傞渶瑕佺Щ鍔ㄧ璁块棶锛?
+- [ ] Fast Mode锛堣緭鍑洪€熷害浼樺寲锛?
+- [ ] 澶氳瑷€鏀寔锛堣嫳鏂囩晫闈級
+- [ ] Web UI 鏀硅繘锛堟洿涓板瘜鐨勫彲瑙嗗寲锛?
 
 ---
 
-**HireClaw = Claude Code 100% + 招聘专业能力**
+## 鎬荤粨
 
-**真正的"懂招聘的 Claude Code"！** 🦞
+### 馃幆 鏍稿績鎴愬氨
+1. **100% 瀹炵幇 HireCoder 鏍稿績鍔熻兘**
+2. **40+ 瀵硅瘽宸ュ叿**
+3. **50+ 婧愪唬鐮佹枃浠?*
+4. **100% 鏂囨。瑕嗙洊**
+5. **鎷涜仒棰嗗煙涓撲笟鑳藉姏**
+
+### 馃殌 鐙壒浼樺娍
+1. **鏅鸿兘鎷涜仒鍔╂墜**锛歋OUL.md + PLAYBOOK.md 鎷涜仒鐭ヨ瘑
+2. **娴忚鍣ㄨ嚜鍔ㄥ寲**锛歅laywright 鑷富 sourcing
+3. **澶氳处鍙峰苟琛?*锛氭晥鐜囩炕鍊?
+4. **瀹炴椂鎺у埗鍙?*锛歐eb Dashboard 鍙鍖?
+5. **涓诲姩鎻愰啋**锛歮acOS 绯荤粺閫氱煡
+
+### 馃挕 浣跨敤浠峰€?
+- **鎷涜仒浜哄憳**锛氳嚜鍔ㄥ寲 sourcing锛屾彁鍗?3-5 鍊嶆晥鐜?
+- **寮€鍙戣€?*锛氬畬鏁寸殑 HireCoder 鑳藉姏锛屽彲鐢ㄤ簬寮€鍙戝伐浣?
+- **鍥㈤槦鍗忎綔**锛歁CP 闆嗘垚 Slack銆丟itHub 绛夋湇鍔?
+
+---
+
+**HireClaw = HireCoder 100% + 鎷涜仒涓撲笟鑳藉姏**
+
+**鐪熸鐨?鎳傛嫑鑱樼殑 HireCoder"锛?* 馃

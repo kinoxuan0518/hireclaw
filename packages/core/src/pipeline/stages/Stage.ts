@@ -1,6 +1,6 @@
 // @hireclaw/core/pipeline/stages — 流水线阶段定义
 //
-// 参考 Claude Code 的 Agentic Loop（收集上下文 → 采取行动 → 验证结果）
+// 参考 HireCoder 的 Agentic Loop（收集上下文 → 采取行动 → 验证结果）
 // 将招聘流水线拆解为明确的阶段，每个阶段可配置、可观察、可审计
 //
 // 阶段顺序：discover → evaluate → filter → plan → outreach → followup
@@ -14,7 +14,7 @@ import type { Candidate, JobConfig, EvaluationResult } from '../../types.js';
 /**
  * 流水线阶段标识
  *
- * 参考 Claude Code Agentic Loop：
+ * 参考 HireCoder Agentic Loop：
  * - 收集上下文 = discover（发现候选人）
  * - 采取行动 = evaluate + outreach（评估 + 触达）
  * - 验证结果 = followup（跟进验证）
@@ -206,7 +206,7 @@ export interface CandidateFilters {
 /**
  * 阶段生命周期钩子
  *
- * 参考 Claude Code 的 check/verify 模式：
+ * 参考 HireCoder 的 check/verify 模式：
  * - before: 阶段执行前的验证
  * - after: 阶段执行后的处理
  * - onError: 阶段失败时的处理

@@ -1,6 +1,6 @@
 /**
  * 权限系统
- * 类似 Claude Code 的权限控制，用户可以批准/拒绝工具调用
+ * 类似 HireCoder 的权限控制，用户可以批准/拒绝工具调用
  */
 
 import readline from 'readline';

@@ -1,6 +1,6 @@
 /**
  * AskUserQuestion - 结构化多选问答工具
- * 类似 Claude Code 的 AskUserQuestion 功能
+ * 类似 HireCoder 的 AskUserQuestion 功能
  */
 
 import readline from 'readline';

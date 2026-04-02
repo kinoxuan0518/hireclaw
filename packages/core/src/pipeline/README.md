@@ -1,10 +1,10 @@
 # @hireclaw/core/pipeline — 流水线编排
 
-> 参考 Claude Code 的 Agentic Loop（收集上下文 → 采取行动 → 验证结果）设计
+> 参考 HireCoder 的 Agentic Loop（收集上下文 → 采取行动 → 验证结果）设计
 
 ## 设计理念
 
-Claude Code 的 Agentic Loop 模式：
+HireCoder 的 Agentic Loop 模式：
 
 ```
 while (task = get_pending_task()):
@@ -64,7 +64,7 @@ const hooks: PipelineHooks = {
 
 ## HumanInLoop（人工介入）
 
-参考 Claude Code 的 Ordinal 权限模式，设计三层机制：
+参考 HireCoder 的 Ordinal 权限模式，设计三层机制：
 
 | Ordinal | 级别 | 行为 |
 |---------|------|------|
@@ -105,7 +105,7 @@ if (request) {
 hil.approve(request.requestId, 'Kino');
 ```
 
-## 与 Claude Code 的关键借鉴点
+## 与 HireCoder 的关键借鉴点
 
 1. **Agentic Loop** — 收集上下文 → 采取行动 → 验证结果 → 回滚（如需要）
 2. **Ordinal 权限模式** — 三层权限控制，从完全自主到完全人工

@@ -1,6 +1,6 @@
 /**
  * Skill 调用系统
- * 类似 Claude Code 的 /skill 命令
+ * 类似 HireCoder 的 /skill 命令
  * 用户可以通过 /skill-name 快速执行预定义的技能
  */
 

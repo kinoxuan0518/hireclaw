@@ -1,6 +1,6 @@
 // @hireclaw/core/memory — 自动记忆（模式发现）
 //
-// 参考 Claude Code 的 compact.rs 结构化压缩摘要设计
+// 参考 HireCoder 的 compact.rs 结构化压缩摘要设计
 // - 自动发现招聘模式并记录
 // - 生成结构化摘要（而非简单截断）
 // - 从历史交互中推断待办
@@ -18,7 +18,7 @@ export interface AutoMemoryConfig {
   store: IMemoryStore;
   /** 压缩阈值（记忆条目数超过此值时触发压缩） */
   compactionThreshold?: number;
-  /** 压缩后保留的最近条目数（参考 Claude Code 的 preserve_recent_messages） */
+  /** 压缩后保留的最近条目数（参考 HireCoder 的 preserve_recent_messages） */
   preserveRecentCount?: number;
   /** 是否启用自动模式发现 */
   autoDiscover?: boolean;
@@ -84,7 +84,7 @@ export interface TimelineEvent {
 /**
  * 自动记忆管理器
  *
- * 参考 Claude Code 的 Auto Memory 和 compact.rs 设计：
+ * 参考 HireCoder 的 Auto Memory 和 compact.rs 设计：
  * - 自动发现招聘模式
  * - 生成结构化压缩摘要（而非简单截断）
  * - 从历史交互中推断待办

@@ -1,63 +1,63 @@
-# HireClaw 功能实现总结
+﻿# HireClaw 鍔熻兘瀹炵幇鎬荤粨
 
-## 概览
+## 姒傝
 
-HireClaw 现已实现所有核心功能，达到 Claude Code 级别的能力，同时保留招聘领域的专业知识。
+HireClaw 鐜板凡瀹炵幇鎵€鏈夋牳蹇冨姛鑳斤紝杈惧埌 HireCoder 绾у埆鐨勮兘鍔涳紝鍚屾椂淇濈暀鎷涜仒棰嗗煙鐨勪笓涓氱煡璇嗐€?
 
-## 已实现功能清单
+## 宸插疄鐜板姛鑳芥竻鍗?
 
-### ✅ Phase 1.1: 计划模式 (Plan Mode)
-**实现时间**: 第一阶段
-**文件**:
-- `src/planner.ts` - AI 驱动的执行计划生成
-- `src/orchestrator.ts` - 集成计划模式支持
+### 鉁?Phase 1.1: 璁″垝妯″紡 (Plan Mode)
+**瀹炵幇鏃堕棿**: 绗竴闃舵
+**鏂囦欢**:
+- `src/planner.ts` - AI 椹卞姩鐨勬墽琛岃鍒掔敓鎴?
+- `src/orchestrator.ts` - 闆嗘垚璁″垝妯″紡鏀寔
 
-**功能**:
-- LLM 分析历史数据和职位需求
-- 生成结构化执行计划（JSON 格式）
-- 用户确认后执行
-- 预估执行时间和资源分配
+**鍔熻兘**:
+- LLM 鍒嗘瀽鍘嗗彶鏁版嵁鍜岃亴浣嶉渶姹?
+- 鐢熸垚缁撴瀯鍖栨墽琛岃鍒掞紙JSON 鏍煎紡锛?
+- 鐢ㄦ埛纭鍚庢墽琛?
+- 棰勪及鎵ц鏃堕棿鍜岃祫婧愬垎閰?
 
-**使用**:
+**浣跨敤**:
 ```bash
 hireclaw run --plan
 ```
 
 ---
 
-### ✅ Phase 2.1: 搜索工具 (Search Tools)
-**实现时间**: 第二阶段
-**文件**:
-- `src/tools/glob.ts` - 文件模式搜索
-- `src/tools/grep.ts` - 内容搜索（优先使用 ripgrep）
+### 鉁?Phase 2.1: 鎼滅储宸ュ叿 (Search Tools)
+**瀹炵幇鏃堕棿**: 绗簩闃舵
+**鏂囦欢**:
+- `src/tools/glob.ts` - 鏂囦欢妯″紡鎼滅储
+- `src/tools/grep.ts` - 鍐呭鎼滅储锛堜紭鍏堜娇鐢?ripgrep锛?
 
-**功能**:
-- Glob 模式匹配文件
-- 正则表达式内容搜索
-- 自动忽略敏感目录
-- 支持上下文行显示
+**鍔熻兘**:
+- Glob 妯″紡鍖归厤鏂囦欢
+- 姝ｅ垯琛ㄨ揪寮忓唴瀹规悳绱?
+- 鑷姩蹇界暐鏁忔劅鐩綍
+- 鏀寔涓婁笅鏂囪鏄剧ず
 
-**对话示例**:
+**瀵硅瘽绀轰緥**:
 ```
-你: 搜索所有 TypeScript 文件中包含 "候选人" 的代码
-AI: [调用 grep 工具搜索]
+浣? 鎼滅储鎵€鏈?TypeScript 鏂囦欢涓寘鍚?"鍊欓€変汉" 鐨勪唬鐮?
+AI: [璋冪敤 grep 宸ュ叿鎼滅储]
 ```
 
 ---
 
-### ✅ Phase 1.2: 错误恢复 (Error Recovery)
-**实现时间**: 第三阶段
-**文件**:
-- `src/error-detector.ts` - 错误检测（验证码、登录过期、限流）
-- `src/retry-handler.ts` - 指数退避重试 + 检查点系统
+### 鉁?Phase 1.2: 閿欒鎭㈠ (Error Recovery)
+**瀹炵幇鏃堕棿**: 绗笁闃舵
+**鏂囦欢**:
+- `src/error-detector.ts` - 閿欒妫€娴嬶紙楠岃瘉鐮併€佺櫥褰曡繃鏈熴€侀檺娴侊級
+- `src/retry-handler.ts` - 鎸囨暟閫€閬块噸璇?+ 妫€鏌ョ偣绯荤粺
 
-**功能**:
-- 自动检测 4 类错误：验证码、登录过期、限流、网络错误
-- 指数退避重试：1s → 2s → 4s → 8s
-- 检查点保存/恢复（24 小时有效期）
-- 断点续传机制
+**鍔熻兘**:
+- 鑷姩妫€娴?4 绫婚敊璇細楠岃瘉鐮併€佺櫥褰曡繃鏈熴€侀檺娴併€佺綉缁滈敊璇?
+- 鎸囨暟閫€閬块噸璇曪細1s 鈫?2s 鈫?4s 鈫?8s
+- 妫€鏌ョ偣淇濆瓨/鎭㈠锛?4 灏忔椂鏈夋晥鏈燂級
+- 鏂偣缁紶鏈哄埗
 
-**检查点示例**:
+**妫€鏌ョ偣绀轰緥**:
 ```json
 {
   "jobId": "default",
@@ -70,45 +70,45 @@ AI: [调用 grep 工具搜索]
 
 ---
 
-### ✅ Phase 1.3: 任务管理 (Task Management)
-**实现时间**: 第四阶段
-**文件**:
-- `src/tasks.ts` - 任务 CRUD 操作和可视化
-- `src/db.ts` - SQLite tasks 表定义
+### 鉁?Phase 1.3: 浠诲姟绠＄悊 (Task Management)
+**瀹炵幇鏃堕棿**: 绗洓闃舵
+**鏂囦欢**:
+- `src/tasks.ts` - 浠诲姟 CRUD 鎿嶄綔鍜屽彲瑙嗗寲
+- `src/db.ts` - SQLite tasks 琛ㄥ畾涔?
 
-**功能**:
-- 5 种任务状态：pending, in_progress, blocked, completed, cancelled
-- 层级任务结构（父子关系）
-- 优先级系统
-- 可视化看板
+**鍔熻兘**:
+- 5 绉嶄换鍔＄姸鎬侊細pending, in_progress, blocked, completed, cancelled
+- 灞傜骇浠诲姟缁撴瀯锛堢埗瀛愬叧绯伙級
+- 浼樺厛绾х郴缁?
+- 鍙鍖栫湅鏉?
 
-**使用**:
+**浣跨敤**:
 ```bash
-hireclaw tasks              # 查看任务看板
-hireclaw tasks 123          # 查看特定任务详情
+hireclaw tasks              # 鏌ョ湅浠诲姟鐪嬫澘
+hireclaw tasks 123          # 鏌ョ湅鐗瑰畾浠诲姟璇︽儏
 ```
 
-**对话工具**:
-- `create_task` - 创建新任务
-- `update_task` - 更新任务状态
-- `list_tasks` - 列出所有任务
+**瀵硅瘽宸ュ叿**:
+- `create_task` - 鍒涘缓鏂颁换鍔?
+- `update_task` - 鏇存柊浠诲姟鐘舵€?
+- `list_tasks` - 鍒楀嚭鎵€鏈変换鍔?
 
 ---
 
-### ✅ Phase 3.1: MCP 协议支持 (MCP Protocol)
-**实现时间**: 第五阶段
-**文件**:
-- `src/mcp-client.ts` - MCP 客户端管理器
-- `workspace/mcp-servers.yaml` - MCP 服务器配置
-- `docs/MCP-GUIDE.md` - 使用文档
+### 鉁?Phase 3.1: MCP 鍗忚鏀寔 (MCP Protocol)
+**瀹炵幇鏃堕棿**: 绗簲闃舵
+**鏂囦欢**:
+- `src/mcp-client.ts` - MCP 瀹㈡埛绔鐞嗗櫒
+- `workspace/mcp-servers.yaml` - MCP 鏈嶅姟鍣ㄩ厤缃?
+- `docs/MCP-GUIDE.md` - 浣跨敤鏂囨。
 
-**功能**:
-- 连接多个 MCP 服务器
-- 调用 MCP 工具
-- 读取 MCP 资源
-- 支持文件系统、GitHub、Slack、Notion、浏览器等
+**鍔熻兘**:
+- 杩炴帴澶氫釜 MCP 鏈嶅姟鍣?
+- 璋冪敤 MCP 宸ュ叿
+- 璇诲彇 MCP 璧勬簮
+- 鏀寔鏂囦欢绯荤粺銆丟itHub銆丼lack銆丯otion銆佹祻瑙堝櫒绛?
 
-**配置示例**:
+**閰嶇疆绀轰緥**:
 ```yaml
 servers:
   - name: filesystem
@@ -116,183 +116,183 @@ servers:
     args:
       - -y
       - "@modelcontextprotocol/server-filesystem"
-      - "/Users/你的目录"
+      - "/Users/浣犵殑鐩綍"
 ```
 
-**对话工具**:
-- `mcp_list_servers` - 列出所有 MCP 服务器
-- `mcp_call_tool` - 调用 MCP 工具
-- `mcp_read_resource` - 读取 MCP 资源
+**瀵硅瘽宸ュ叿**:
+- `mcp_list_servers` - 鍒楀嚭鎵€鏈?MCP 鏈嶅姟鍣?
+- `mcp_call_tool` - 璋冪敤 MCP 宸ュ叿
+- `mcp_read_resource` - 璇诲彇 MCP 璧勬簮
 
 ---
 
-### ✅ Phase 2.2: Git 自动化 (Git Automation)
-**实现时间**: 第六阶段（最新）
-**文件**:
-- `src/git-helper.ts` - Git 操作核心模块
-- `docs/GIT-AUTOMATION.md` - 使用文档
-- `test-git.ts` - 功能测试脚本
+### 鉁?Phase 2.2: Git 鑷姩鍖?(Git Automation)
+**瀹炵幇鏃堕棿**: 绗叚闃舵锛堟渶鏂帮級
+**鏂囦欢**:
+- `src/git-helper.ts` - Git 鎿嶄綔鏍稿績妯″潡
+- `docs/GIT-AUTOMATION.md` - 浣跨敤鏂囨。
+- `test-git.ts` - 鍔熻兘娴嬭瘯鑴氭湰
 
-**功能**:
-- 查看 Git 状态（分支、修改、未跟踪文件）
-- 提交代码（支持指定文件或全部）
-- 创建分支（支持指定基础分支）
-- 推送到远程（支持强制推送）
-- 创建 GitHub PR（需要 gh CLI）
+**鍔熻兘**:
+- 鏌ョ湅 Git 鐘舵€侊紙鍒嗘敮銆佷慨鏀广€佹湭璺熻釜鏂囦欢锛?
+- 鎻愪氦浠ｇ爜锛堟敮鎸佹寚瀹氭枃浠舵垨鍏ㄩ儴锛?
+- 鍒涘缓鍒嗘敮锛堟敮鎸佹寚瀹氬熀纭€鍒嗘敮锛?
+- 鎺ㄩ€佸埌杩滅▼锛堟敮鎸佸己鍒舵帹閫侊級
+- 鍒涘缓 GitHub PR锛堥渶瑕?gh CLI锛?
 
-**对话工具**:
-- `git_status` - 查看 git 状态
-- `git_commit` - 提交代码
-- `git_create_branch` - 创建新分支
-- `git_push` - 推送到远程
-- `git_create_pr` - 创建 Pull Request
+**瀵硅瘽宸ュ叿**:
+- `git_status` - 鏌ョ湅 git 鐘舵€?
+- `git_commit` - 鎻愪氦浠ｇ爜
+- `git_create_branch` - 鍒涘缓鏂板垎鏀?
+- `git_push` - 鎺ㄩ€佸埌杩滅▼
+- `git_create_pr` - 鍒涘缓 Pull Request
 
-**使用示例**:
+**浣跨敤绀轰緥**:
 ```
-你: 查看 git 状态
-AI: [调用 git_status]
-当前分支：main
-已修改 (2):
+浣? 鏌ョ湅 git 鐘舵€?
+AI: [璋冪敤 git_status]
+褰撳墠鍒嗘敮锛歮ain
+宸蹭慨鏀?(2):
   M src/chat.ts
   M README.md
 
-你: 提交所有改动，消息"feat: add git automation"
-AI: [调用 git_commit]
-提交成功！SHA: a1b2c3d4
+浣? 鎻愪氦鎵€鏈夋敼鍔紝娑堟伅"feat: add git automation"
+AI: [璋冪敤 git_commit]
+鎻愪氦鎴愬姛锛丼HA: a1b2c3d4
 
-你: 创建 PR，标题"Add Git automation"
-AI: [调用 git_create_pr]
-PR 创建成功！
+浣? 鍒涘缓 PR锛屾爣棰?Add Git automation"
+AI: [璋冪敤 git_create_pr]
+PR 鍒涘缓鎴愬姛锛?
 URL: https://github.com/user/hireclaw/pull/123
 ```
 
 ---
 
-## 额外实现的功能
+## 棰濆瀹炵幇鐨勫姛鑳?
 
-### 多账号并行管理
-**文件**: `src/accounts.ts`, `src/browser-runner.ts`
-**功能**:
-- 独立 BrowserContext 管理
-- 持久化登录状态（storageState）
-- 首次登录引导流程
-- 支持 2+ 账号同时执行，效率成倍提升
+### 澶氳处鍙峰苟琛岀鐞?
+**鏂囦欢**: `src/accounts.ts`, `src/browser-runner.ts`
+**鍔熻兘**:
+- 鐙珛 BrowserContext 绠＄悊
+- 鎸佷箙鍖栫櫥褰曠姸鎬侊紙storageState锛?
+- 棣栨鐧诲綍寮曞娴佺▼
+- 鏀寔 2+ 璐﹀彿鍚屾椂鎵ц锛屾晥鐜囨垚鍊嶆彁鍗?
 
-### 对话模式工具集
-**文件**: `src/chat.ts`
-**工具数量**: 20+ 个
+### 瀵硅瘽妯″紡宸ュ叿闆?
+**鏂囦欢**: `src/chat.ts`
+**宸ュ叿鏁伴噺**: 20+ 涓?
 
-**分类**:
-1. **执行控制**: run_sourcing, scan_inbox
-2. **候选人管理**: update_candidate, list_candidates, search_candidate
-3. **数据分析**: get_funnel, analyze_image
-4. **文件操作**: read_file, write_file
-5. **网络搜索**: web_search
-6. **代码操作**: read_code, modify_code, execute_shell
-7. **搜索工具**: glob, grep
-8. **任务管理**: create_task, update_task, list_tasks
-9. **MCP 集成**: mcp_list_servers, mcp_call_tool, mcp_read_resource
-10. **Git 自动化**: git_status, git_commit, git_create_branch, git_push, git_create_pr
+**鍒嗙被**:
+1. **鎵ц鎺у埗**: run_sourcing, scan_inbox
+2. **鍊欓€変汉绠＄悊**: update_candidate, list_candidates, search_candidate
+3. **鏁版嵁鍒嗘瀽**: get_funnel, analyze_image
+4. **鏂囦欢鎿嶄綔**: read_file, write_file
+5. **缃戠粶鎼滅储**: web_search
+6. **浠ｇ爜鎿嶄綔**: read_code, modify_code, execute_shell
+7. **鎼滅储宸ュ叿**: glob, grep
+8. **浠诲姟绠＄悊**: create_task, update_task, list_tasks
+9. **MCP 闆嗘垚**: mcp_list_servers, mcp_call_tool, mcp_read_resource
+10. **Git 鑷姩鍖?*: git_status, git_commit, git_create_branch, git_push, git_create_pr
 
 ---
 
-## 技术栈
+## 鎶€鏈爤
 
-### 核心依赖
-- **Playwright**: 浏览器自动化
-- **OpenAI SDK**: LLM API 调用
-- **better-sqlite3**: 数据持久化
+### 鏍稿績渚濊禆
+- **Playwright**: 娴忚鍣ㄨ嚜鍔ㄥ寲
+- **OpenAI SDK**: LLM API 璋冪敤
+- **better-sqlite3**: 鏁版嵁鎸佷箙鍖?
 - **MCP SDK**: Model Context Protocol
-- **glob**: 文件模式搜索
-- **ripgrep**: 高性能内容搜索（可选）
+- **glob**: 鏂囦欢妯″紡鎼滅储
+- **ripgrep**: 楂樻€ц兘鍐呭鎼滅储锛堝彲閫夛級
 
 ### TypeScript + Node.js 22+
-- 严格类型检查
-- ESM 模块系统
-- 异步操作
+- 涓ユ牸绫诲瀷妫€鏌?
+- ESM 妯″潡绯荤粺
+- 寮傛鎿嶄綔
 
 ---
 
-## 架构特点
+## 鏋舵瀯鐗圭偣
 
-### 1. 模块化设计
-每个功能独立模块，职责清晰：
-- `orchestrator.ts` - 任务协调
-- `browser-runner.ts` - 浏览器管理
-- `planner.ts` - 计划生成
-- `tasks.ts` - 任务管理
-- `mcp-client.ts` - MCP 集成
-- `git-helper.ts` - Git 操作
+### 1. 妯″潡鍖栬璁?
+姣忎釜鍔熻兘鐙珛妯″潡锛岃亴璐ｆ竻鏅帮細
+- `orchestrator.ts` - 浠诲姟鍗忚皟
+- `browser-runner.ts` - 娴忚鍣ㄧ鐞?
+- `planner.ts` - 璁″垝鐢熸垚
+- `tasks.ts` - 浠诲姟绠＄悊
+- `mcp-client.ts` - MCP 闆嗘垚
+- `git-helper.ts` - Git 鎿嶄綔
 
-### 2. 事件驱动
-- 全局事件总线（`events.ts`）
-- Runner ↔ Dashboard 实时通信
-- 截图、日志流式传输
+### 2. 浜嬩欢椹卞姩
+- 鍏ㄥ眬浜嬩欢鎬荤嚎锛坄events.ts`锛?
+- Runner 鈫?Dashboard 瀹炴椂閫氫俊
+- 鎴浘銆佹棩蹇楁祦寮忎紶杈?
 
-### 3. 数据持久化
-- SQLite 数据库（候选人、对话、任务）
-- 文件系统（账号状态、检查点）
-- YAML 配置（职位、MCP 服务器）
+### 3. 鏁版嵁鎸佷箙鍖?
+- SQLite 鏁版嵁搴擄紙鍊欓€変汉銆佸璇濄€佷换鍔★級
+- 鏂囦欢绯荤粺锛堣处鍙风姸鎬併€佹鏌ョ偣锛?
+- YAML 閰嶇疆锛堣亴浣嶃€丮CP 鏈嶅姟鍣級
 
-### 4. 错误容错
-- 多级错误检测
-- 自动重试机制
-- 检查点恢复
-- 优雅降级
+### 4. 閿欒瀹归敊
+- 澶氱骇閿欒妫€娴?
+- 鑷姩閲嶈瘯鏈哄埗
+- 妫€鏌ョ偣鎭㈠
+- 浼橀泤闄嶇骇
 
 ---
 
-## 对比 Claude Code
+## 瀵规瘮 HireCoder
 
-| 功能 | HireClaw | Claude Code | 备注 |
+| 鍔熻兘 | HireClaw | HireCoder | 澶囨敞 |
 |------|----------|-------------|------|
-| 计划模式 | ✅ | ✅ | AI 分析历史数据生成计划 |
-| 文件搜索 (Glob) | ✅ | ✅ | 支持模式匹配 |
-| 内容搜索 (Grep) | ✅ | ✅ | 优先使用 ripgrep |
-| 错误恢复 | ✅ | ✅ | 检测 + 重试 + 检查点 |
-| 任务管理 | ✅ | ✅ | 层级任务 + 状态跟踪 |
-| MCP 协议 | ✅ | ✅ | 连接外部服务 |
-| Git 自动化 | ✅ | ✅ | 提交、分支、PR |
-| **招聘领域知识** | ✅ | ❌ | HireClaw 独有 |
-| **浏览器自动化** | ✅ | ❌ | Playwright sourcing |
-| **多账号并行** | ✅ | ❌ | HireClaw 独有 |
-| **主动提醒** | ✅ | ❌ | macOS 系统通知 |
+| 璁″垝妯″紡 | 鉁?| 鉁?| AI 鍒嗘瀽鍘嗗彶鏁版嵁鐢熸垚璁″垝 |
+| 鏂囦欢鎼滅储 (Glob) | 鉁?| 鉁?| 鏀寔妯″紡鍖归厤 |
+| 鍐呭鎼滅储 (Grep) | 鉁?| 鉁?| 浼樺厛浣跨敤 ripgrep |
+| 閿欒鎭㈠ | 鉁?| 鉁?| 妫€娴?+ 閲嶈瘯 + 妫€鏌ョ偣 |
+| 浠诲姟绠＄悊 | 鉁?| 鉁?| 灞傜骇浠诲姟 + 鐘舵€佽窡韪?|
+| MCP 鍗忚 | 鉁?| 鉁?| 杩炴帴澶栭儴鏈嶅姟 |
+| Git 鑷姩鍖?| 鉁?| 鉁?| 鎻愪氦銆佸垎鏀€丳R |
+| **鎷涜仒棰嗗煙鐭ヨ瘑** | 鉁?| 鉂?| HireClaw 鐙湁 |
+| **娴忚鍣ㄨ嚜鍔ㄥ寲** | 鉁?| 鉂?| Playwright sourcing |
+| **澶氳处鍙峰苟琛?* | 鉁?| 鉂?| HireClaw 鐙湁 |
+| **涓诲姩鎻愰啋** | 鉁?| 鉂?| macOS 绯荤粺閫氱煡 |
 
 ---
 
-## 使用统计
+## 浣跨敤缁熻
 
-### 工具总数: 20+
-### 代码文件: 25+
-### 测试覆盖: 核心功能已测试
-### 文档完整度: 100%
-
----
-
-## 下一步计划（可选）
-
-### 1. 增强功能
-- [ ] Git rebase 自动化
-- [ ] 多 Git 平台支持（GitLab、Bitbucket）
-- [ ] 更多 MCP 服务器预配置
-
-### 2. 性能优化
-- [ ] 并行任务执行优化
-- [ ] 数据库查询优化
-- [ ] 缓存机制
-
-### 3. 用户体验
-- [ ] Web UI 改进
-- [ ] 更丰富的可视化
-- [ ] 快捷键支持
+### 宸ュ叿鎬绘暟: 20+
+### 浠ｇ爜鏂囦欢: 25+
+### 娴嬭瘯瑕嗙洊: 鏍稿績鍔熻兘宸叉祴璇?
+### 鏂囨。瀹屾暣搴? 100%
 
 ---
 
-## 贡献者
+## 涓嬩竴姝ヨ鍒掞紙鍙€夛級
 
-- 基于 Claude Code 架构设计
-- 深度集成招聘领域知识
-- 社区反馈持续改进
+### 1. 澧炲己鍔熻兘
+- [ ] Git rebase 鑷姩鍖?
+- [ ] 澶?Git 骞冲彴鏀寔锛圙itLab銆丅itbucket锛?
+- [ ] 鏇村 MCP 鏈嶅姟鍣ㄩ閰嶇疆
+
+### 2. 鎬ц兘浼樺寲
+- [ ] 骞惰浠诲姟鎵ц浼樺寲
+- [ ] 鏁版嵁搴撴煡璇紭鍖?
+- [ ] 缂撳瓨鏈哄埗
+
+### 3. 鐢ㄦ埛浣撻獙
+- [ ] Web UI 鏀硅繘
+- [ ] 鏇翠赴瀵岀殑鍙鍖?
+- [ ] 蹇嵎閿敮鎸?
+
+---
+
+## 璐＄尞鑰?
+
+- 鍩轰簬 HireCoder 鏋舵瀯璁捐
+- 娣卞害闆嗘垚鎷涜仒棰嗗煙鐭ヨ瘑
+- 绀惧尯鍙嶉鎸佺画鏀硅繘
 
 ---
 
@@ -302,5 +302,5 @@ MIT
 
 ---
 
-**最后更新**: 2024-01-20
-**版本**: v0.2.0-alpha
+**鏈€鍚庢洿鏂?*: 2024-01-20
+**鐗堟湰**: v0.2.0-alpha

@@ -84,8 +84,8 @@ async function runAllTests() {
     }
   })();
 
-  // Phase 4: Claude Code 独有功能
-  console.log(chalk.bold('\nPhase 4: Claude Code 独有功能'));
+  // Phase 4: HireCoder 独有功能
+  console.log(chalk.bold('\nPhase 4: HireCoder 独有功能'));
 
   await test('Auto Memory', async () => {
     const { loadMemory, initializeDefaultTopics } = await import('./src/auto-memory');

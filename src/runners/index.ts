@@ -11,7 +11,7 @@ export function createRunner(): LLMRunner {
 
   switch (provider) {
     case 'claude':
-      return new (require('./claude').ClaudeRunner)();
+      return new (require('./agent').AgentRunner)();
 
     case 'openai':
       return new (require('./openai').OpenAIRunner)();
